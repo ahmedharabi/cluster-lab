@@ -1949,8 +1949,16 @@ run_seed_setup
 ca_deploy
 #join_additional_cp_nodes
 join_workers
+run_post_join_setup
 fetch_kubeconfig
 }
+
+run_post_join_setup() {
+  local seed
+  seed="$(seed_node)" || return 1
+  run_scripts_on_nodes "$BASE_DIR/seed-setup/$SEED_SETUP/post-join.d" "$seed"
+}
+
 
 has_cluster_node_roles() {
 local n role
