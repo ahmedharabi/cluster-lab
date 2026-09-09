@@ -1946,10 +1946,10 @@ run_node_setup
 
 up_cluster() {
 run_seed_setup
-ca_deploy
 #join_additional_cp_nodes
 join_workers
 run_post_join_setup
+ca_deploy
 fetch_kubeconfig
 }
 
@@ -1957,6 +1957,7 @@ run_post_join_setup() {
   local seed
   seed="$(seed_node)" || return 1
   run_scripts_on_nodes "$BASE_DIR/seed-setup/$SEED_SETUP/post-join.d" "$seed"
+  run_scripts_on_nodes "$LAB_DIR/lab-script" "$seed"
 }
 
 
